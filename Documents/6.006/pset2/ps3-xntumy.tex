@@ -1,0 +1,193 @@
+%
+% 6.006 homework template
+%
+% Please rename this document to ps1-jdoe.tex (where jdoe is your
+% Athena username) and turn in ps1-jdoe.pdf.
+%
+% You can compile this document to PDF by typing `pdflatex ps1-jdoe.tex`.
+%
+% You will need a font included in the texlive-fonts-recommended
+% package (which can be installed via apt, or your package manager of
+% choice) or the document won't build and you'll get an error about a
+% missing font.
+%
+% NOTE:
+% Be sure to define your name with the \name command
+% Be sure to use the \answer command for each of your answers 
+%   (first argument: problem name
+%   second argument: collaborators (write 'none' if you solved it alone))
+\documentclass[12pt]{article}
+
+\newcommand{\yourname}{Xola Ntumy}
+\newcommand{\problemset}{ Problem set 3 }
+
+\input{macros}
+
+%\pagestyle{headings}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\theproblemsetnum}{1}
+\newcommand{\releasedate}{March 1, 2011}
+\newcommand{\partaduedate}{Monday, March 7}
+\newcommand{\tabUnit}{3ex}
+\newcommand{\tabT}{\hspace*{\tabUnit}}
+
+
+\newcommand{\answer}[2]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.006 Homework \hfill {\bf \problemset}
+		\hfill \# #1 \\ 
+		\yourname \hfill \today \\
+                Collaborators: #2
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+
+\answer{1 -- Recurrences}{Kwadwo Nyarko} 
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+\item
+T(n) = O(n log n)
+
+\end{enumerate}
+
+
+\begin{enumerate}[(b)]
+
+\item
+T(n) =   O (n to the power log base 4 of 3)
+
+
+\end{enumerate}
+
+\begin{enumerate}[(c)]
+
+\item
+T(n) = O(n to the power 2)
+
+\end{enumerate}
+
+
+\begin{enumerate}[(d)]
+
+\item
+The recurrence relation would be: T(n) = c * T(n / c) + log n
+
+Solving this relation would give us: 
+
+T(n) = O (n log n)
+
+\end{enumerate}
+
+
+\begin{enumerate}[(e)]
+
+\item
+The running time ceases to be constant. It would now change based on the function n.
+
+\end{enumerate}
+
+% PROBLEM 2
+
+\answer{2 -- $d$-ary Heaps}{Kwadwo Nyarko}
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+\item
+Parent(i):
+
+return ((i - 1) / d ) + 1
+
+\end{enumerate}
+
+\begin{enumerate}[(b)]
+
+\item
+Child(i, k):
+
+return (i * d) + k + 1
+
+\end{enumerate}
+
+
+\begin{enumerate}[(c)]
+
+\item
+The height of the d-array heap would be O(log base d of n)
+
+\end{enumerate}
+
+\begin{enumerate}[(d)]
+
+\item
+The asymptotic running time of Heapify is O(d * log base d of n) since for every level it does d comparisons and it is of height log base d of n.
+
+while the running time of Increase-key will be O(log base d of n) since it does one comparison per each of the log base d of n levels in the heap.
+
+\end{enumerate}
+
+\begin{enumerate}[(e)]
+
+\item
+Since the height is O(log base d of n):
+ 
+If d = O(1), the resulting running time is O(log n)
+
+If d = O(log n), the resulting running time becomes O(log base log n of n) which simplifies to O(log n / (log (log n)))
+
+If d = O(n), the resulting running time becomes O(log base n of n) which simplifies to O(1)
+
+\end{enumerate}
+
+\begin{enumerate}[(f)]
+
+\item
+The running times for Heapify:
+
+a) when d = O(1), would be O(log n)
+
+b) when d = O(log n), would be O(log n * log n / (log (log n)))
+
+c) when d = O(n), would be O(n)
+
+The running times for Increase-key:
+
+a) when d = O(1), would be O(log n)
+
+b) when d = O(log n), would be O(log n / (log (log n)))
+
+c) when d = O(n), would be O(1)
+
+When d is increased the running times increase for Heapify but decrease for Increase-Key
+
+\end{enumerate}
+
+
+\end{document}
+

@@ -1,0 +1,91 @@
+%
+% 6.006 homework template
+%
+% Please rename this document to ps1-jdoe.tex (where jdoe is your
+% Athena username) and turn in ps1-jdoe.pdf.
+%
+% You can compile this document to PDF by typing `pdflatex ps1-jdoe.tex`.
+%
+% You will need a font included in the texlive-fonts-recommended
+% package (which can be installed via apt, or your package manager of
+% choice) or the document won't build and you'll get an error about a
+% missing font.
+%
+% NOTE:
+% Be sure to define your name with the \name command
+% Be sure to use the \answer command for each of your answers 
+%   (first argument: problem name
+%   second argument: collaborators (write 'none' if you solved it alone))
+\documentclass[12pt]{article}
+
+\newcommand{\yourname}{INSERT NAME HERE}
+\newcommand{\problemset}{ Problem set 3 }
+
+\input{macros}
+
+%\pagestyle{headings}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\theproblemsetnum}{1}
+\newcommand{\releasedate}{March 1, 2011}
+\newcommand{\partaduedate}{Monday, March 7}
+\newcommand{\tabUnit}{3ex}
+\newcommand{\tabT}{\hspace*{\tabUnit}}
+
+
+\newcommand{\answer}[2]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.006 Homework \hfill {\bf \problemset}
+		\hfill \# #1 \\ 
+		\yourname \hfill \today \\
+                Collaborators: #2
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+
+\answer{1 -- Recurrences}{INSERT COLLABORATORS HERE} 
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+\item
+T(n) = O(nlogn)
+
+\end{enumerate}
+
+% PROBLEM 2
+
+\answer{2 -- $d$-ary Heaps}{INSERT COLLABORATORS HERE}
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+\item
+
+\end{enumerate}
+
+\end{document}
+

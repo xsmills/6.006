@@ -1,0 +1,304 @@
+if i+1 >= n and j+1 >= n:
+            return (n-1, n-1)
+        else:
+            if i+1 >= n:
+                return (n-1, j)
+            if j+1 >= n:
+                return (i, n-1)
+            
+        if i-1 <= 0 and j-1 <= 0:
+            return (0,0)
+        else:
+            if i+1 <= 0:
+                return (0, j)
+            if j+1 <= 0:
+                return (i, 0)
+
+
+
+if i+1 >= n and j+1 >= n:
+            return (n-1, n-1)
+       
+            
+        if i-1 <= 0 and j-1 <= 0:
+            return (0,0)
+        
+            
+import sys
+
+############### Auxiliary functions #####################
+def find_column_global_max(matrix, x, y0, y1):
+    """ Finds global maximum of column x between rows y0 and y1 (inclusive). """
+    best_y = y0
+    best_h = matrix[x][best_y]
+    for y in range(y0+1, y1+1):
+        h = matrix[x][y]
+        if best_h < h:
+            best_y = y
+            best_h = h
+    return (x,best_y, best_h)            
+
+def find_row_global_max(matrix, y, x0, x1):
+    """ Finds global maximum of row y between columns x0 and x1 (inclusive). """
+    best_x = x0
+    best_h = matrix[best_x][y]
+    for x in range(x0+1, x1+1):
+        h = matrix[x][y]
+        if best_h < h:
+            best_x = x
+            best_h = h
+    return (best_x, y, best_h)            
+
+def find_global_max(matrix, x0, x1, y0, y1):
+    """ Finds global maximum of sub-matrix between columns x0 and x1 and rows y0 and y1 (inclusive). """
+    best_x = x0
+    best_y = y0
+    best_h = matrix[best_x][best_y]
+    for x in range(x0, x1+1):
+        for y in range(y0, y1+1):
+            h = matrix[x][y]
+            if(best_h < h):
+                best_x = x
+                best_y = y
+                best_h = h
+    return (best_x, best_y, best_h)
+
+############################################################
+
+
+####################### Algorithms Implementation #########################
+
+"""Find a peak of a mountain range.
+
+The mountain range is a 2-dimensional matrix of integers values,
+indexed by closed intervals [x0,x1] and [y0,y1].
+
+A peak is defined as a location which is at least as high as the adjacent
+locations (two locations are adjacent if they share a common edge).
+
+Keyword arguments:
+matrix -- a matrix of altitudes
+x0 -- an integer which is the leftmost index of the range
+x1 -- an integer which is the rightmost index of the range
+y0 -- an integer which is the bottom-most index of the range
+y1 -- an integer which is the topmost index of the range
+
+Return value: a pair of coordinates (x, y) of any local maximum location
+
+"""
+
+def quick_find_2d_peak(matrix, x0, x1, y0, y1):
+    """
+    Implement O(n) solution given in lecture.
+    """
+    
+    ########### WRITE YOUR IMPLEMENTATION HERE ############
+    mid = (x0 + x1) /2
+    n = x1 - x0
+    array = []
+    m1 = find_column_global_max(matrix, y0, x0, x1)
+    array.append(m1)
+    m2 = find_column_global_max(matrix, mid, x0, x1)
+    array.append(m2)
+    m3 = find_column_global_max(matrix, y1, x0, x1)
+    array.append(m3)
+
+    
+    m4 = find_row_global_max(matrix, x0, y0, y1)
+    array.append(m4)
+    m5 = find_row_global_max(matrix, mid, y0, y1)
+    array.append(m5)
+    m6 = find_row_global_max(matrix, x1, y0, y1)
+    array.append(m6)
+
+    array2 = []
+    for arr in array:
+        m = arr[2]
+        array2.append(m)
+
+    
+    global_max = max(array2)
+    max_ind = array[array2.index(global_max)]
+    (i,j) = (max_ind[0], max_ind[1])
+
+    if i+1 < n and i-1 > 0:
+        if j+1 < n and j-1 > 0:
+            if global_max >= matrix[i+1][j] and global_max >= matrix[i-1][j]:
+                if global_max >= matrix[i][j+1] and global_max >= matrix[i][j-1]:
+                    return (i,j)
+            elif global_max < matrix[i+1][j]:
+                #print mid
+                if j < mid:
+                    return quick_find_2d_peak(matrix,i+1, x1-1, y0+1, mid-1)
+                elif j >= mid:
+                    return quick_find_2d_peak(matrix,i+1, x1-1, mid+1, y1-1)
+                
+            elif global_max < matrix[i-1][j]:
+                #print mid
+                if j < mid:
+                    return quick_find_2d_peak(matrix,x0+1, i-1, y0+1, mid-1)
+                elif j >= mid:
+                    return quick_find_2d_peak(matrix,x0+1, i-1, mid+1, y1-1)
+                
+            elif global_max < matrix[i][j-1]:
+                #print mid
+                if i < mid:
+                    return quick_find_2d_peak(matrix,x0+1, mid-1, y0+1, j-1)
+                elif i > mid:
+                    return quick_find_2d_peak(matrix,mid+1, x1-1, y0+1, j-1)
+
+            elif global_max < matrix[i][j+1]:
+                #print mid
+                if  i < mid:
+                    return quick_find_2d_peak(matrix, x0+1, mid-1,j+1, y1-1)
+                elif i >mid:
+                    return quick_find_2d_peak(matrix,mid+1,x1-1,j+1, y1-1)
+
+
+    else:
+        if i+1 >= n and j+1 >= n:
+            return (n-1, n-1)
+       
+            
+        if i-1 <= 0 and j-1 <= 0:
+            return (0,0)
+     
+
+        
+            
+    
+    return (x0, y0) # Change this to return your solution.
+    #######################################################
+
+
+def medium_find_2d_peak(matrix, x0, x1, y0, y1):
+    """
+    Implements O(n log(n)) solution given in lecture.
+    """
+    
+    while x0 < x1: 
+
+        mid_x = (x0+x1)/2 # If the width of the range is even,
+                          # this picks the cell slightly to the left of the middle
+ 
+        mid_col_glob_max = find_column_global_max(matrix, mid_x, y0, y1)
+        right_col_glob_max = find_column_global_max(matrix, mid_x + 1, y0, y1)
+
+        if right_col_glob_max[1] > mid_col_glob_max[1]:
+            x0 = mid_x + 1 # choose the right half
+        else:
+            x1 = mid_x # choose the left half
+             
+    max_y_and_value = find_column_global_max(matrix, x0, y0, y1)
+    return (x0, max_y_and_value[0])
+
+
+def slow_find_2d_peak(matrix, x0, x1, y0, y1):
+    """
+    Implements O(n^2) solution given in lecture.
+    """
+    result = find_global_max(matrix, x0, x1, y0, y1)
+    return (result[0], result[1])
+##########################################################################
+
+
+
+
+
+
+
+
+
+
+if i+1 < n and i-1 > 0:
+        if j+1 < n and j-1 > 0:
+            if global_max >= matrix[i+1][j] and global_max >= matrix[i-1][j]:
+                if global_max >= matrix[i][j+1] and global_max >= matrix[i][j-1]:
+                    return (i,j)
+            elif i == x0:
+                if global_max < matrix[i+1][j]:
+                #print mid
+                    if j < mid:
+                        return quick_find_2d_peak(matrix,x0, mid, mid, y1
+                    elif j >= mid:
+                        return quick_find_2d_peak(matrix,x0, mid, y0, mid)
+                
+            elif global_max < matrix[i-1][j]:
+                #print mid
+                if j < mid:
+                    return quick_find_2d_peak(matrix,x0, mid, y0, mid)
+                elif j >= mid:
+                    return quick_find_2d_peak(matrix,mid, x1, y0, mid)
+                
+            elif global_max < matrix[i][j-1]:
+                #print mid
+                if i < mid:
+                    return quick_find_2d_peak(matrix,mid, x1, mid, y1)
+                elif i >= mid:
+                    return quick_find_2d_peak(matrix,x0, mid, mid, y1)
+
+            elif global_max < matrix[i][j+1]:
+                #print mid
+                if  i < mid:
+                    return quick_find_2d_peak(matrix, x0, mid,y0, mid)
+                elif i >= mid:
+                    return quick_find_2d_peak(matrix,mid, x1,y0, mid)
+
+            elif (matrix[mid][y] >= matrix[mid-1][y]) and (matrix[mid][y] >= matrix[mid+1][y]) :
+                return (x, y)
+        
+    
+        else:
+            if matrix[mid+1][y] > matrix[mid][y]:
+                if y >= mid:
+                    return quick_find_2d_peak(matrix, mid_x, x1, mid_y, y1)
+                else: return quick_find_2d_peak(matrix, mid_x, x1, y0, mid_y)
+
+            elif matrix[mid_x - 1][y] > matrix[mid_x][y]:
+                if y >= mid_y:
+                    return quick_find_2d_peak(matrix, x0, mid_x, mid_y, y1)
+                else:
+                    return quick_find_2d_peak(matrix, x0, mid_x, y0, mid_y)
+
+    else:
+        if i+1 >= n and j+1 >= n:
+            return (n-1, n-1)
+       
+            
+        if i-1 <= 0 and j-1 <= 0:
+            return (0,0)
+     
+
+
+
+ x0 = 1
+    n = len(array)
+    mid = n/2
+    mid_num = array[mid]
+
+    if ( j == i+1 ):
+        if array[i] >= array[j]:
+            return i
+        else: return j
+    
+    if mid+1 < n and mid-1 > 0:
+        if mid_num >= array[mid+1] and mid_num >= array[mid-1]:
+            #print "This is the middle " + str(mid)
+            #print array[mid]
+            return mid
+        elif mid_num < array[mid+1]:
+            #print "right: " + str(mid_num)
+            #print n
+            return quick_find_1d_peak(array[(mid+1):])
+        elif mid_num < array[mid-1]:
+            #print "left: " + str(mid_num)
+            return quick_find_1d_peak(array[0:mid])
+
+    elif mid+1 >= n:
+        #print "This is the end " + str(n)
+        #print array[n-1]
+        return mid
+    elif mid-1 <= 0:
+        #print 0
+        return 0
+   

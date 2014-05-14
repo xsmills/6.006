@@ -1,0 +1,83 @@
+%
+% 6.006 homework template
+%
+% Please rename this document to ps7-jdoe.tex (where jdoe is your
+% Athena username) and turn in ps7-jdoe.pdf.
+%
+% You can compile this document to PDF by typing `pdflatex ps7-jdoe.tex`.
+%
+% You will need a font included in the texlive-fonts-recommended
+% package (which can be installed via apt, or your package manager of
+% choice) or the document won't build and you'll get an error about a
+% missing font.
+%
+% NOTE:
+% Be sure to define your name with the \name command
+% Be sure to use the \answer command for each of your answers 
+%   (first argument: problem name
+%   second argument: collaborators (write 'none' if you solved it alone))
+\documentclass[12pt]{article}
+
+\newcommand{\yourname}{Xola Ntumy}
+\newcommand{\problemset}{ Problem set 7 }
+
+\input{macros}
+
+%\pagestyle{headings}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\answer}[2]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.006 Homework \hfill {\bf \problemset}
+		\hfill \# #1 \\ 
+		\yourname \hfill \today \\
+                Collaborators: #2
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+\answer{1 -- Ghostbusters and Ghosts}{INSERT COLLABORATORS HERE} 
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+\item
+Since no three positions can be collinear if the Ghostbusters are in fixed positions there exists a line in the plane passing through one Ghostbuster and a ghost such that the number of Ghostbusters on one side of the line equals the number of ghosts on the same side. 	Such a line might pass through the Ghostbuster-ghost pair that both have the lowest or largest x or y-coordinates. This pair might be at the extremes of the plane and we know that no other ghost or Ghostbusters can exist on that line (otherwise three positions would be collinear). Therefore on one side of this line, there will be nothing and on the other side there will be the remaining pairs. This line will exist while the Ghostbusters are paired such that no streams are crossing.
+
+To find such a line, we assume that the line exists and arbitrarily choose a Ghostbuster through which the line passes. Now we must find the ghost that pairs with the Ghostbuster in this line. To do this, we place each ghost in a binary search tree on basis of their distance away from the Ghostbuster. Now we search through the tree, for each ghost checking to see whether |   Ghostbusters-ghosts | on each side of the line drawn from the pair of that ghost and our arbitrary Ghostbuster  is equal to 0. If it is, we have found our line, if it is negative we move to the left subtree, if it is positive to the right.
+The runtime for this algorithm is O(n log n) simply because it takes log n time to search the binary tree and n time for each Ghostbuster we try.
+\end{enumerate}
+
+\begin{enumerate}[(b)]
+\item
+To pair each Ghostbuster with a ghost run the above algorithm n times. The reason why this would work is that if the aforementioned line is found for each ghostbuster, we can be assured that the ghost through which the line passes will allow pairings such that no streams cross. This would give a runtime of O(n*n log n). 
+\end{enumerate}
+
+
+\answer{2 -- Three is company}{INSERT COLLABORATORS HERE}
+An algorithm to find a compatible roommate is as follows in O(m to the power log 3). First, represent A, B and C as a sequence of 0-1 coefficients of a polynomial. By multiplying the polynomials A and B, the exponents would be added up. If the product contains any of the terms from the polynomial C, then this would mean that there is some a in A, b in B and c in C for which a + b = c. 
+Multiplying the polynomials can be done in O(m to the power log 3) time using Karatsuba's algorithm for integer multiplication. 
+
+
+\end{document}

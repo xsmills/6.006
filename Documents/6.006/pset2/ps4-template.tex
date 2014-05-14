@@ -1,0 +1,100 @@
+%
+% 6.006 homework template
+%
+% Please rename this document to ps1-jdoe.tex (where jdoe is your
+% Athena username) and turn in ps1-jdoe.pdf.
+%
+% You can compile this document to PDF by typing `pdflatex ps1-jdoe.tex`.
+%
+% You will need a font included in the texlive-fonts-recommended
+% package (which can be installed via apt, or your package manager of
+% choice) or the document won't build and you'll get an error about a
+% missing font.
+%
+% NOTE:
+% Be sure to define your name with the \name command
+% Be sure to use the \answer command for each of your answers 
+%   (first argument: problem name
+%   second argument: collaborators (write 'none' if you solved it alone))
+\documentclass[12pt]{article}
+
+\newcommand{\yourname}{Xola Ntumy}
+\newcommand{\problemset}{ Problem set 4 }
+
+\input{macros}
+
+%\pagestyle{headings}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\theproblemsetnum}{1}
+\newcommand{\releasedate}{March 10, 2011}
+\newcommand{\partaduedate}{Friday, March 18}
+\newcommand{\tabUnit}{3ex}
+\newcommand{\tabT}{\hspace*{\tabUnit}}
+
+
+\newcommand{\answer}[2]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.006 Homework \hfill {\bf \problemset}
+		\hfill \# #1 \\ 
+		\yourname \hfill \today \\
+                Collaborators: #2
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+
+\answer{1 -- Cycles}{Kwadwo Nyarko} 
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+% Part a
+\item
+The algorithm is not correct. We are dealing with a directed graph. Therefore if we have a graph G with edges: K-P, P-J, K-J, a breadth first search would lead us searching from K to P, then from P to J, then from J to K. Clearly, we would hit the vertex K twice. However since the graph is directed and there is no edge J-K, there would be no cycle.
+
+% Part b
+\item
+On an undirected graph however, this algorithm should work fine. Using a similar example of graph G, with edges: K-P, P-J, K-J. This time with BFS, we could search from K to P, then from P to J and then from J to K. However, this time around, if we hit the vertex K twice, we know for sure that there is a cycle since the edge K-J can also be traversed as J-K, giving us a cycle.
+
+% Part c
+\item
+Given a directed graph G, we traverse the graph in DFS fashion from the root to the first leaf (childless node). Now if on the way back up to the parent nodes, we encounter a vertex from before, and there is an edge leading from it we have found a cycle. This algorithm ensures that all local cycles may be found since the graph is directed. We would need to visit every single vertex and traverse all edges in the worst case. Hence the running time is O(V+E).
+
+
+% Part d
+\item
+Given an undirected graph G, we traverse the graph in DFS fashion from the root to the first leaf (childless node). Now if on the way back up to the parent nodes, we encounter a vertex from before, we have found a cycle. This algorithm ensures that all local cycles may be found since the graph is directed. We would need to visit every single vertex but not traverse all edges in addition in the worst case. Hence the running time is O(V) and is not dependent on the number of edges.
+
+\end{enumerate}
+
+% PROBLEM 2
+
+\answer{2 -- Bipartite}{None}
+%Write `none' if solved alone.
+Start out with the m pairs of friends. Split this group of 2m players into two groups of red and blue such that every friend in a pair is an opposite group. ie. no pairs are in the same group. Now randomly assign the rest of the n-2m players to the groups of red and blue. The running time for this is O(n+2m-m) which is O(n+m).
+
+\end{document}
+

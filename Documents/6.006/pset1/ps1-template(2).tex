@@ -1,0 +1,209 @@
+%
+% 6.006 homework template
+%
+% Please rename this document to ps1-jdoe.tex (where jdoe is your
+% Athena username) and turn in ps1-jdoe.pdf.
+%
+% You can compile this document to PDF by typing `pdflatex ps1-jdoe.tex`.
+%
+% You will need a font included in the texlive-fonts-recommended
+% package (which can be installed via apt, or your package manager of
+% choice) or the document won't build and you'll get an error about a
+% missing font.
+%
+% NOTE:
+% Be sure to define your name with the \name command
+% Be sure to use the \answer command for each of your answers 
+%   (first argument: problem name
+%   second argument: collaborators (write 'none' if you solved it alone))
+\documentclass[12pt]{article}
+
+\newcommand{\yourname}{Xola Ntumy}
+\newcommand{\problemset}{ Problem Set 1, Part A }
+
+\input{macros}
+
+%\pagestyle{headings}
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\theproblemsetnum}{1}
+\newcommand{\releasedate}{February 1, 2011}
+\newcommand{\partaduedate}{Monday, February 14}
+\newcommand{\tabUnit}{3ex}
+\newcommand{\tabT}{\hspace*{\tabUnit}}
+
+
+\newcommand{\answer}[2]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.006 Homework \hfill {\bf \problemset}
+		\hfill \# #1 \\ 
+		\yourname \hfill \today \\
+                Collaborators: #2
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+
+\answer{1 --  Asymptotic Growth}{Adwoa Boakye} 
+%Write `none' if solved alone.
+
+
+\begin{enumerate}[(a)]
+% To help with LaTeX syntax, the original charts are copied here
+
+\item
+  Group 1:
+  %% INSERT ANSWER
+
+   \begin{align*}
+   f_3 &= 2^{2^{100000}} &
+    f_4 &= \log n &
+   f_1 &= 8 \sqrt{n} &
+   f_2 &= \binom{n}{2} &
+    \end{align*}
+
+
+\item
+  Group 2:
+  %% INSERT ANSWER
+
+  \begin{align*}
+  f_1(n) &= 1 / n &
+  f_2(n) &= \log \log \log n &
+  f_3(n) &= n / \log n &
+  f_4(n) &= n^{0.99}
+  \end{align*}
+
+\item
+  Group 3:
+  %% INSERT ANSWER
+
+  \begin{align*}
+   f_3(n) &= \log n^n &
+      f_4(n) &= \sum_{i=0}^n i &
+        f_2(n) &= n \cdot 2^{n/2} &
+  f_1(n) &= 2^n 
+  \end{align*}
+
+\end{enumerate}
+
+
+
+% PROBLEM 2
+
+\answer{2 -- Unimodal Maximum}{None}
+%Write `none' if solved alone.
+
+%% INSERT ANSWER 
+To find the maximum element in a unimodal array in an efficient manner, first take the middle element of the array at index (n/2), where n is the length of the array. 
+If this element is greater than or equal to the elements on its right and left, then this element is the unimodal maximum. Return that element.
+Otherwise, if the element to the left of the middle element is greater, recurse this algorithm using the left half of the array.
+Else, use the right half.
+
+There is guaranteed to be only one unimodal maximum. The running time of this algorithm is O(log n) because each time the "search space" (array) is divided into two and hence the list is traversed a total of log n times.
+
+
+% PROBLEM 3
+
+\answer{3 -- (Re)writing History}{None}
+
+\begin{enumerate}[(a)]
+
+\item
+
+No. This will keep the document distance the same as before. This is because the same dot product will be computed when the words are expressed as vectors even though the order of the words is different from before. The length of the document will remain the same and hence the document distance will not be affected.
+
+
+\item
+
+%% INSERT ANSWER TO B
+Yes. This will increase the document distance. Though the dot product between matching words in both documents may remain the same, the document lengths will vary. The product of the document lengths will decrease. This will give rise to a greater document distance.
+
+\item
+
+%% INSERT ANSWER TO C
+Yes. This should increase the document distance. Less matching words and a smaller product from the document lengths will also give rise to a greater document distance.
+
+\end{enumerate}
+
+
+
+% PROBLEM 4
+
+\answer{4 -- Augmented Binary Search Trees}{none}
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+\item
+
+%% INSERT ANSWER TO A
+
+To find the number of items (in this case textbooks) in a regular, non-augmented AVL tree which fall  within a specific range, start at the root of the tree and search the tree linearly. Initialize a counter. Traverse all nodes of the tree and check whether the prices to which the nodes point to are within the range (ie. are they less than or equal to b and greater than or equal to a), if they are, increment the counter. 
+
+Otherwise, move to the next node. Since this algorithm would imply visiting and expanding each and every node, the running time would be O(n) where n is the number of nodes in the AVL tree.
+
+
+\item
+
+%% INSERT ANSWER TO B
+	
+	
+A more efficient way of finding the number of textbooks would involve expanding nodes only if we have to. Since an augmented tree has pointers to its price, parents and children, the children of a node can be examined before that node is expanded. Starting with the root, the augmented AVL tree may be traversed such that each time a node is visited, its price and the price of its children is checked. 
+
+First off, if the root's price is less than a, the right tree is recursed, and similarly if the root's price is greater than b, the left-tree is recursed. If the price is within the range, comparisons are made as to which child of the tree should be traversed.
+
+In pseudocode:
+
+Start with root.
+Initialize counter.
+Define an auxiliary recursive function.
+Recurse(T):
+If root is less than a:
+	recurse right-tree
+
+if root  is greater than b:
+        recurse left-tree
+
+if the root is within the range (a,b):
+	if left-child is less than a and the right-child is greater than b:
+		increment counter
+		return counter
+		
+	else if root has no children:
+		increment counter
+		check parent's right-child
+		
+	else if the left-child is within the range(a,b):
+		recurse left-tree
+		 
+	else if the right child is within the range(a,b):
+		recurse right-tree
+		
+This would give a running time of O(log n) because at each decision or comparison, the number of nodes is reduced by half.
+\end{enumerate}
+
+\end{document}
+

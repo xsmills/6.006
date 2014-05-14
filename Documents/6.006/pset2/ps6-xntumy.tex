@@ -1,0 +1,133 @@
+%
+% 6.006 homework template
+%
+% Please rename this document to ps6-jdoe.tex (where jdoe is your
+% Athena username) and turn in ps6-jdoe.pdf.
+%
+% You can compile this document to PDF by typing `pdflatex ps6-jdoe.tex`.
+%
+% You will need a font included in the texlive-fonts-recommended
+% package (which can be installed via apt, or your package manager of
+% choice) or the document won't build and you'll get an error about a
+% missing font.
+%
+% NOTE:
+% Be sure to define your name with the \name command
+% Be sure to use the \answer command for each of your answers 
+%   (first argument: problem name
+%   second argument: collaborators (write 'none' if you solved it alone))
+\documentclass[12pt]{article}
+
+\newcommand{\yourname}{Xola Ntumy}
+\newcommand{\problemset}{ Problem set 6 }
+
+\input{macros}
+
+%\pagestyle{headings}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-3pc}
+\setlength{\textheight}{9.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+\newcommand{\answer}[2]{
+\newpage
+\noindent
+\framebox{
+	\vbox{
+		6.006 Homework \hfill {\bf \problemset}
+		\hfill \# #1 \\ 
+		\yourname \hfill \today \\
+                Collaborators: #2
+	}
+}
+\bigskip
+
+}
+
+
+\begin{document}
+
+\answer{1 -- Placing Parentheses}{None} 
+%Write `none' if solved alone.
+
+\begin{enumerate}[(a)]
+
+\item
+The set of subproblems that one would use to solve this problem would be a set of substrings that give an optimal ordering to perform the operations. 
+
+\end{enumerate}
+
+\begin{enumerate}[b]
+
+\item
+The recurrence would be the maximum of the total number of subproblems.
+
+C(i,j) = max((x1 oper(i) (x2 oper(j) x3)), ((x1 oper(i) x2) oper(j) x3))
+such that i = index of ith operation, j = index of jth operation  and oper(i) is the ith operation and op(j) is the jth operation.
+
+
+\end{enumerate}
+
+\begin{enumerate}[c]
+\item
+The number of subproblems is n*n. The time for each problem however is O(1) therefore the total running time would be O(n*n)
+\end{enumerate}
+
+\answer{2 -- Text Formatting}{None}
+%Write `none' if solved alone.
+
+
+\begin{enumerate}[a]
+\item
+The subproblem would be to minimize the badness of each line as well the remaining space on the last line.
+
+\end{enumerate}
+
+\begin{enumerate}[b]
+\item
+The recurrence would then the minimum of the sum of each line's badness and the remaining space on the last time, ie. the sum of all the subproblems.
+\end{enumerate}
+
+\begin{enumerate}[c]
+\item
+The running time would be the the time it takes to do a subproblem by the number of subproblems.
+We have n subproblems which can be solved in O(1) so the running time is O(n).
+\end{enumerate}
+
+
+\begin{enumerate}[d]
+\item
+We could fill up each line with words up until just before or right after the target line length has been reached and check whether or not stopping at the word before we reach the target line length or stopping after that word will produce minimum badness for that line until we run out of words. We then minimize the max badness for the current line by taking words from the previous line until badness is minimized. We can do this for every two consecutive lines starting from the bottom and going up by recursion.
+\end{enumerate}
+
+
+
+\answer{3 -- Dungeons and Dragons and Dynamic Programming}{Wesam Manassra}
+%Write `none' if solved alone.
+Solving this problem will involve the use of the 2 tables through the bottom-up approach. The first table would keep track of the net HP(i,j) and the other keeps track of the which previous square gave the current square its current total.  
+The subproblem is finding the optimal path that will make the sum of XPÕs along the path maximum without HP(i,j) ever being less than or equal to 0. We can guess that if we start from bottom of the table and work towards the position which we are at, we will obtain max XP and squares that have not been traversed yet are set to negative infinity HP points.The recurrence relation:XP(i,j,h) = max(XP(i, j-1, h+H(i,j-1)), XP(i-1, j-1, h+H(i,j-1)), XP(i+1, j-1, h+H(i,j-1)))
+where H(i,j) is the sum of hitpointsI propose we start by way of the bottom-up approach for all n-starting positions. The bottom row XP points only based on their own hp and xp, and not the previous rows since they are the starting position.On each subsequent row, look at the XP points of the previous row and add the xp points of the current box to the max of the total XP points of the previous rows ( only for the grids that can come to the current grid).  Update the two tables accordingly for the entire row and then move up to the next row.  If hp(i,j) ever goes reaches 0 or below, discontinue that path. At the end of the algorithm, simple follow the path which produced highest xp.Since we are dealing with an n*n grid the number subproblems = 0(n*n) Time per subproblem = 0(1) The running time is therefore subproblems * time per subproblem =  0(n*n)  
+
+
+
+\answer{4 -- Railroads and Gauges}{Kwadwo Nyarko}
+%Write `none' if solved alone.
+
+Subproblem:  C(s, g1,g2,g3) representing the minimum cost ( based on number of different gauges) for the subtree rooted at the node v where v is a switching stations and not a town.D(g1, g2, g3) = 0 if all three are the same, 1 if is different, 2 if all three are differentThe recurrence now becomes:C(s, g1, g2, g3) = min (D(g1,g2,g3)+C(u1,g1,g4,g5)+ C(u2,g2,g6,g7)+ C(u3,g3,g8,g9)) for every g1,g2,g3 within the constraints of any switching stations connected to a town or a previously minimized switching station.We first attempt all combinations of labeling SÕs: u1,u2,u3. We utilize a spanning tree for this problem as it seems to be the best data structure applicable. We select the combination that gives us the minimum cost and run the algorithm via the bottom-up approach . At each node, we iterate through every possible labeling and store whatever we obtain as the best score for each of them. We then use this result later on in the problem. We will eventually propagate all the solutions up to the root and know all the switching station gauges. 
+
+\answer{5 -- Website Rankings}{INSERT COLLABORATORS HERE}
+%Write `none' if solved alone.
+
+Using the sequence of arrays suggested, by binary search, Ai can be turned to Ai+1 and this will be done in O(logn) time. Since we have n arrays the total running time for this algorithm would be O(nlogn). The LIS(z) would simply the length of the An array.
+\end{document}
